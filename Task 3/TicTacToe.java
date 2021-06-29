@@ -8,57 +8,61 @@ public class TicTacToe {
 
         Scanner input = new Scanner(System.in);
 
-        String[] pos = {"1" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9"};
-        ArrayList<Integer> Xarr = new ArrayList<>();
-        ArrayList<Integer> Oarr = new ArrayList<>();
+        do {
 
-        System.out.println("Welcome to 3x3 Tic Tac Toe.\n" + printBoard(pos));
+            String[] pos = {"1" , "2" , "3" , "4" , "5" , "6" , "7" , "8" , "9"};
+            ArrayList<Integer> Xarr = new ArrayList<>();
+            ArrayList<Integer> Oarr = new ArrayList<>();
 
-        String player;
+            System.out.println("\n\nWelcome to 3x3 Tic Tac Toe.\n" + printBoard(pos));
 
-        for (int i = 1; i < 10; i++) {
+            String player;
 
-            player = i % 2 == 0 ? "O" : "X";
+            for (int i = 1; i < 10; i++) {
 
-            System.out.print(i == 1 ? "X will play first. " : player + "'s turn. ");
+                player = i % 2 == 0 ? "O" : "X";
 
-            boolean invalidInput = true;
-            String num;
-            while (invalidInput) {
-                System.out.println("Enter a slot number to place " + player + " in:");
-                num = input.next();
+                System.out.print(i == 1 ? "X will play first. " : player + "'s turn. ");
 
-                if (!num.matches("[1-9]")) {
-                    System.out.println("Invalid input! Please enter a number between 1-9.");
+                boolean invalidInput = true;
+                String num;
+                while (invalidInput) {
+                    System.out.println("Enter a slot number to place " + player + " in:");
+                    num = input.next();
 
-                } else if (pos[Integer.valueOf(num) - 1].matches("[XO]")) { //!pos[num - 1].equals(String.valueOf(num))
-                    System.out.println("Invalid input! This box number is already taken, try again.");
+                    if (!num.matches("[1-9]")) {
+                        System.out.println("Invalid input! Please enter a number between 1-9.");
 
-                } else {
-                    pos[Integer.valueOf(num) - 1] = player;
+                    } else if (pos[Integer.valueOf(num) - 1].matches("[XO]")) { //!pos[num - 1].equals(String.valueOf(num))
+                        System.out.println("Invalid input! This box number is already taken, try again.");
 
-                    if (player.equals("X")) {
-                        Xarr.add(Integer.valueOf(num));
-                        Collections.sort(Xarr);
                     } else {
-                        Oarr.add(Integer.valueOf(num));
-                        Collections.sort(Oarr);
+                        pos[Integer.valueOf(num) - 1] = player;
+
+                        if (player.equals("X")) {
+                            Xarr.add(Integer.valueOf(num));
+                            Collections.sort(Xarr);
+                        } else {
+                            Oarr.add(Integer.valueOf(num));
+                            Collections.sort(Oarr);
+                        }
+                        invalidInput = false;
                     }
-                    invalidInput = false;
+
+                }
+
+                System.out.println(printBoard(pos));
+
+                if (checkWin(player.equals("X") ? Xarr : Oarr)) {
+                    System.out.println("Congratulations! " + player + "'s have won! Thanks for playing.");
+                    System.exit(0);
                 }
 
             }
 
-            System.out.println(printBoard(pos));
+            System.out.println("Draw!! Thanks for playing.\nPlay again? ( Y / N )");
 
-            if (checkWin(player.equals("X") ? Xarr : Oarr)) {
-                System.out.println("Congratulations! " + player + "'s have won! Thanks for playing.");
-                System.exit(0);
-            }
-
-        }
-
-        System.out.println("Draw!! Thanks for playing.");
+        } while (input.next().toUpperCase().charAt(0) == 'Y');
 
     }
 
@@ -79,11 +83,11 @@ public class TicTacToe {
         if (arr.toString().matches(".*1..2..3.*")
                 || arr.toString().matches(".*4..5..6.*")
                 || arr.toString().matches(".*7..8..9.*")
-                || arr.toString().matches(".*1..4..7.*")
-                || arr.toString().matches(".*2..5..8.*")
-                || arr.toString().matches(".*3..6..9.*")
-                || arr.toString().matches(".*1..5..9.*")
-                || arr.toString().matches(".*3..5..7.*")) {
+                || arr.toString().matches(".*1.*4.*7.*")
+                || arr.toString().matches(".*2.*5.*8.*")
+                || arr.toString().matches(".*3.*6.*9.*")
+                || arr.toString().matches(".*1.*5.*9.*")
+                || arr.toString().matches(".*3.*5.*7.*")) {
             return true;
         } else {
             return false;
