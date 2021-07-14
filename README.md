@@ -23,7 +23,7 @@ In the Tic-Tac-Toe game, you will see the approach of the game is implemented.In
   * One mode **Multiplayer**
 
 * V2:
-  * Two medes **Multiplayer & Against Computer**
+  * Two modes **Multiplayer & Against Computer**
   
 
 ## Task 4
