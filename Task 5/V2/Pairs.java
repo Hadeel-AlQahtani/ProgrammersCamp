@@ -1,7 +1,3 @@
-/*
-hadeel alqahtani
-177
- */
 package ArrayOfPairs;
 
 import java.util.*;
